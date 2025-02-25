@@ -6,42 +6,27 @@ const Productos = () => {
     const navigate = useNavigate();
     const {id} = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
-    const idProducto = searchParams.get("id");
+    const idOrden = searchParams.get("order");
     let arrayFiltro;
 
-    if (idProducto) {
-        arrayFiltro = idProducto ? arrayProductos.filter(item => item.id == idProducto) : [];
-    } else {
-        arrayFiltro = id ? arrayProductos.filter(item => item.categoria == id) : arrayProductos;
-    }
-     
-    /* arrayFiltro = idOrden ? arrayFiltro.sort((a, b) => {
+    arrayFiltro = id ? arrayProductos.filter(item => item.categoria == id) : arrayProductos;
+    arrayFiltro = idOrden ? arrayFiltro.sort((a, b) => {
         let datos = idOrden.split("-");
-
-        if (datos[0] == "nombre") {
-            if (datos[1] == "asc") {
-                if (a.nombre > b.nombre) {
-                    return 1
-                } 
+        
+        if (datos[1] == "asc") {            
+            if (a[datos[0]] > b[datos[0]]) {
+                return 1;
             } else {
-                if (a.nombre < b.nombre) {
-                    return 1
-                } 
+                return -1;
+            }
+        } else {
+            if (a[datos[0]] < b[datos[0]]) {
+                return 1;
+            } else {                
+                return -1;
             }
         }
-
-        if (datos[0] == "nombre") {
-            if (datos[1] == "asc") {
-                if (a.nombre > b.nombre) {
-                    return 1
-                } 
-            } else {
-                if (a.nombre < b.nombre) {
-                    return 1
-                } 
-            }
-        }        
-    }) */
+    }) : arrayFiltro;
 
     const ordenSeleccionado = () => {
         const orden = document.getElementById("orden");
