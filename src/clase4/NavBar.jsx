@@ -1,9 +1,13 @@
+import { useContext } from "react"
 import { NavLink, Link } from "react-router-dom"
+import { ThemeContext } from "../clase5/context/ThemeContext"
 
 const NavBar = () => {
+    const {darkMode, switchDarkMode} = useContext(ThemeContext);
+
     return (
         <div className="container my-5">
-            <div className="row">
+            <div className={`row ${darkMode ? "bg-black" : ""} p-3`}>
                 <div className="col-md-1">
                     <Link to={"/"}>
                         <svg width="36" height="32" viewBox="0 0 36 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,18 +15,25 @@ const NavBar = () => {
                         </svg>
                     </Link>
                 </div>
-                <div className="col-md-11 align-middle">
+                <div className="col-md-9">
                     <ul className="nav">
                         <li className="nav-item">
-                            <NavLink to={"/productos"} className="nav-link text-dark">Productos</NavLink>
+                            <NavLink to={"/productos"} className={`nav-link ${darkMode ? "text-white" : "text-dark"}`}>Productos</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={"/familia"} className="nav-link text-dark">En Familia</NavLink>
+                            <NavLink to={"/familia"} className={`nav-link ${darkMode ? "text-white" : "text-dark"}`}>En Familia</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to={"/recetas"} className="nav-link text-dark">Recetas del Futuro</NavLink>
+                            <NavLink to={"/recetas"} className={`nav-link ${darkMode ? "text-white" : "text-dark"}`}>Recetas del Futuro</NavLink>
                         </li>
                     </ul>
+                </div>
+                <div className="col-md-2 d-flex justify-content-end">
+                    <div className="form-check form-switch">
+                        <input className="form-check-input" type="checkbox" role="switch" onChange={switchDarkMode} />
+                        <label className={`form-check-label ${darkMode ? "text-white" : "text-dark"}`}>Dark Mode</label>
+                    </div>
+                    <Link to={"/carrito"}>[Carrito]</Link>
                 </div>
             </div>
         </div>

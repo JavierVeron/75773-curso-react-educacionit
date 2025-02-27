@@ -1,26 +1,34 @@
-import { Routes, Route } from "react-router-dom"
 import NavBar from "./clase4/NavBar";
-import Productos from "./clase4/Productos";
-import Producto from "./clase4/Producto";
-import EnFamilia from "./clase4/EnFamilia";
-import RecetasDelFuturo from "./clase4/RecetasDelFuturo";
-import Error404 from "./clase4/Error404";
 import Footer from "./clase4/Footer";
+/* import withPosts from "./clase5/HOC"; */
+import Layout from "./clase5/Layout";
+import ThemeContextProvider from "./clase5/context/ThemeContext";
+import API from "./clase5/API";
+import CartContextProvider from "./clase5/context/CartContext";
+import { Route, Routes } from "react-router-dom";
+import Carrito from "./clase5/Carrito";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path={"/"} element={<Productos />} />
-        <Route path={"/productos"} element={<Productos />} />
-        <Route path={"/producto/:id"} element={<Producto />} />
-        <Route path={"/categoria/:id"} element={<Productos />} />
-        <Route path={"/familia"} element={<EnFamilia />} />
-        <Route path={"/recetas"} element={<RecetasDelFuturo />} />
-        <Route path={"*"} element={<Error404 />} />
-      </Routes>
-      <Footer />
+      <CartContextProvider>
+        <ThemeContextProvider>
+          <NavBar />
+          {/* <Layout>
+            <h1>Educación IT</h1>
+            <h3>Curso de React JS Developer</h3>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error nobis, tenetur exercitationem cumque commodi sequi a? Error tenetur eius unde veniam, corrupti necessitatibus, veritatis nemo, corporis deleniti laborum earum culpa!</p>
+          </Layout> */}
+          {/* <withPosts>
+            <p>hola</p>
+          </withPosts> */}
+          <Routes>
+            <Route path="/" element={<API />} />
+            <Route path="/carrito" element={<Carrito />} />
+          </Routes>
+          <Footer />
+        </ThemeContextProvider>
+      </CartContextProvider>
     </>
   )
 }
