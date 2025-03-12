@@ -14,18 +14,18 @@ const tasks = [
 ]
 
 // Definimos las Acciones
-const filterTaks = (filter) => ({
+const FILTER_TASKS = (filter) => ({
     type:"FILTER_TASKS",
     payload:filter
 })
 
-const SHOW_COMPLETE = () => ({
+const SHOW_COMPLETE = {
     type:"SHOW_COMPLETE"
-})
+}
 
-const SHOW_ALL = () => ({
+const SHOW_ALL = {
     type:"SHOW_ALL"
-})
+}
 
 // Definir nuestro Reducer
 const taskReducer = (prevState = tasks, action) => {
@@ -46,10 +46,7 @@ const taskReducer = (prevState = tasks, action) => {
                 filtered:tasks.filter(item => item.completado == action.payload)
             }
         default:
-            return {
-                ...prevState,
-                filtered:tasks
-            }
+            return prevState
     }
 }
 
@@ -57,29 +54,23 @@ const taskReducer = (prevState = tasks, action) => {
 const store = createStore(taskReducer);
 
 const Tareas = () => {
-    const [items, setItems] = useState(store.getState().filtered);
+    const [items, setItems] = useState(store.getState());
 
     const mostrarTodas = () => {                
-        store.dispatch({
-            type:"SHOW_ALL"
-        });
-        setItems(store.getState().filtered)
+        store.dispatch(SHOW_ALL);
     }
 
     const mostrarCompletadas = () => {
-        store.dispatch({
-            type:"SHOW_COMPLETE"
-        });
-        setItems(store.getState().filtered)
+        store.dispatch(SHOW_COMPLETE)
     }
 
     const mostrarNoCompletadas = () => {
-        store.dispatch({
-            type:"FILTER_TASKS",
-            payload:false
-        })
-        setItems(store.getState().filtered)
+        store.dispatch(FILTER_TASKS(false));
     }
+
+    store.subscribe(() => {
+        setItems(store.getState().filtered);
+    })
 
     return (
         <div className="container">
