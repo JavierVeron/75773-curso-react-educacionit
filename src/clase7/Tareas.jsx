@@ -10,15 +10,11 @@ const tasks = [
     {id:5, nombre:"Ir a correr", completado:true},
     {id:6, nombre:"Merendar", completado:true},
     {id:7, nombre:"Cenar", completado:false},
-    {id:8, nombre:"Ver una Película o Serie", completado:false}
+    {id:8, nombre:"Ver una Película o Serie", completado:false},
+    {id:9, nombre:"Dormir", completado:false}
 ]
 
 // Definimos las Acciones
-const FILTER_TASKS = (filter) => ({
-    type:"FILTER_TASKS",
-    payload:filter
-})
-
 const SHOW_COMPLETE = {
     type:"SHOW_COMPLETE"
 }
@@ -26,6 +22,11 @@ const SHOW_COMPLETE = {
 const SHOW_ALL = {
     type:"SHOW_ALL"
 }
+
+const FILTER_TASKS = (filter) => ({
+    type:"FILTER_TASKS",
+    payload:filter
+})
 
 // Definir nuestro Reducer
 const taskReducer = (prevState = tasks, action) => {
@@ -79,7 +80,7 @@ const Tareas = () => {
                     <h1>Redux - Tareas</h1>
                     <button className="btn btn-primary btn-sm mx-1" onClick={mostrarTodas}>Mostrar Todas</button>
                     <button className="btn btn-primary btn-sm mx-1" onClick={mostrarCompletadas}>Mostrar Completados</button>
-                    <button className="btn btn-primary btn-sm mx-1" onClick={mostrarNoCompletadas}>Mostrar No Compleatados</button>
+                    <button className="btn btn-primary btn-sm mx-1" onClick={mostrarNoCompletadas}>Mostrar No Completados</button>
                     <ul className="list-group list-group-flush">
                         {
                             items.map(item => (
