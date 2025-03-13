@@ -28,12 +28,14 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="col-md-2 d-flex justify-content-end">
+                <div className="col-md-2 d-flex align-items-center justify-content-end">
                     <div className="form-check form-switch">
                         <input className="form-check-input" type="checkbox" role="switch" onChange={switchDarkMode} />
                         <label className={`form-check-label ${darkMode ? "text-white" : "text-dark"}`}>Dark Mode</label>
                     </div>
-                    <Link to={"/carrito"}>[Carrito]</Link>
+                    <Link to={"/carrito"} className="btn btn-warning ms-2">
+                        <i className="bi bi-cart"></i>
+                    </Link>
                 </div>
             </div>
         </div>
