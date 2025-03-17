@@ -1,9 +1,11 @@
 import { useContext } from "react"
 import { NavLink, Link } from "react-router-dom"
 import { ThemeContext } from "../clase5/context/ThemeContext"
+import { useSelector } from "react-redux"
 
 const NavBar = () => {
     const {darkMode, switchDarkMode} = useContext(ThemeContext);
+    const cantProductos = useSelector(state => state.cantProductos);
 
     return (
         <div className="container my-5">
@@ -15,7 +17,7 @@ const NavBar = () => {
                         </svg>
                     </Link>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-8">
                     <ul className="nav">
                         <li className="nav-item">
                             <NavLink to={"/productos"} className={`nav-link ${darkMode ? "text-white" : "text-dark"}`}>Productos</NavLink>
@@ -28,13 +30,14 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="col-md-2 d-flex align-items-center justify-content-end">
+                <div className="col-md-3 d-flex align-items-center justify-content-end">
                     <div className="form-check form-switch">
                         <input className="form-check-input" type="checkbox" role="switch" onChange={switchDarkMode} />
                         <label className={`form-check-label ${darkMode ? "text-white" : "text-dark"}`}>Dark Mode</label>
                     </div>
-                    <Link to={"/carrito"} className="btn btn-warning ms-2">
-                        <i className="bi bi-cart"></i>
+
+                    <Link to={"/carrito"} className="btn btn-warning position-relative ms-3">
+                        <i className="bi bi-cart"></i>{cantProductos > 0 ? <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{cantProductos}</span> : ""}
                     </Link>
                 </div>
             </div>
